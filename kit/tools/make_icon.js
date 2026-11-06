@@ -96,6 +96,13 @@ if (glyph === 'gauge') {
     c.circle(30, 110, 10, W);
     c.circle(38, 50, 16, A);
     c.line(38, 18, 26, 42, 5, A); c.line(38, 18, 50, 42, 5, A);
+} else if (glyph === 'track') {
+    // race circuit (a loop) with the checkered start/finish line and a car marker
+    c.strokeRoundRect(16, 36, 108, 72, 34, 8, W);       // outer kerb
+    c.strokeRoundRect(42, 60, 56, 24, 12, 6, W);        // inner kerb
+    for (let i = 0; i < 5; i++) for (let j = 0; j < 2; j++)   // start/finish checkers on the lower straight
+        if ((i + j) % 2 === 0) c.fillRect(50 + i * 8, 90 + j * 7, 8, 7, W);
+    c.circle(112, 72, 7, A);                             // car on the right bend
 } else if (glyph === 'doom') {
     // horned demon skull, red eyes
     c.convex([[30, 52], [14, 14], [46, 38]], W);            // horns

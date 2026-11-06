@@ -20,6 +20,7 @@
 | `dimon_edrive` | eDrive | Для гибридов: реальный запас хода, батарея, журнал зарядок |
 | `dimon_redline` | Redline | Полноэкранный тахометр и индикаторы переключения |
 | `dimon_draggy` | Drag Timer | 0–100, 100–200, ¼ мили |
+| `dimon_track_mode` | Track Mode | Лап-таймер: круги, секторы, лучший круг и дельта; старт по кнопке на линии |
 | `dimon_brake_test` | Brake Test | Замер тормозного пути |
 | `dimon_dyno` | Virtual Dyno | Виртуальный диностенд |
 | `dimon_gforce` | G-Force | Измеритель перегрузок |
