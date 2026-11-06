@@ -65,10 +65,11 @@
    **Перепрошивка стирает CAFD/кодирование MGU и Digital Key.** До неё сохраните
    кодирование, после неё восстановите (E-Sys).
 2. Установите [mgu-store](https://github.com/robertnisipeanu/mgu-store#install).
-3. Репозиторий приватный, поэтому в Store откройте **Settings → Accounts → Add token** и
-   добавьте GitHub-токен с доступом *Contents: Read-only* к этому репозиторию.
-4. В Store: **Settings → Add source** → `C1pHu4ok/dimonprograms-apps`, ветка `main`.
-5. Установите нужные приложения на странице **Store**.
+3. В Store: **Settings → Add source** → `C1pHu4ok/dimonprograms-apps`, ветка `main`.
+   Репозиторий публичный, токен не нужен. Источник читается как «repo tree», и
+   головное устройство само собирает приложения из исходников (SDK берётся с
+   донора — штатного приложения BMW в блоке).
+4. Установите нужные приложения на странице **Store**.
 
 ## Разработка
 
