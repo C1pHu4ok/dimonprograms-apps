@@ -279,7 +279,7 @@ against (MPL-2.0, as in their file headers).
 ## Test without a car
 
 ```sh
-node kit/tools/preview.js dist/car_vitals out render --gpu out/stream.bin   # what the GPU would get
+node kit/tools/preview.js dist/dimon_car_vitals out render --gpu out/stream.bin   # what the GPU would get
 docker run --rm -v $PWD/kit/renderd/build:/b -v $PWD/out:/o mgu-renderd-build \
     /lib64/ld-linux-x86-64.so.2 /b/mgu-renderd --replay /o/stream.bin --out /o/frame.pam
 ```

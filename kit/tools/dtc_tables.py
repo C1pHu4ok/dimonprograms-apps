@@ -4,7 +4,7 @@ what it needs.
 
     python kit/tools/dtc_tables.py <folder or .zip with the dtc_scanner_*.json tables> [out_dir]
 
-out_dir defaults to apps/dtc_scanner/dtc_db/tables (not in git: the texts are BMW's). Input tables:
+out_dir defaults to apps/dimon_dtc_scanner/dtc_db/tables (not in git: the texts are BMW's). Input tables:
     dtc_scanner_variant_exact.json  "<sgbd>:<code>"    the text for exactly that control unit type
     dtc_scanner_addr_exact.json     "<address>:<code>" the text every type at that address agrees on
     dtc_scanner_ecu_matches.json    "<address>:<code>" matched by unit name in the text
@@ -18,12 +18,12 @@ Written:
     addr/<address>.json   { code: text }   addr_exact, else ecu_matches, else ecu_hints
     codes.json            { code: text }   dtc_scanner_texts
     ambiguous.json        { code: n }
-Missing tables are skipped. Then rebuild the dtc_scanner app (kit/tools/build.py dtc_scanner).
+Missing tables are skipped. Then rebuild the dimon_dtc_scanner app (kit/tools/build.py dimon_dtc_scanner).
 """
 import json, os, re, shutil, sys, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, '..', '..', 'apps', 'dtc_scanner', 'dtc_db', 'tables')
+OUT = os.path.join(HERE, '..', '..', 'apps', 'dimon_dtc_scanner', 'dtc_db', 'tables')
 NAMES = ('dtc_scanner_variant_exact.json', 'dtc_scanner_addr_exact.json', 'dtc_scanner_ecu_matches.json', 'dtc_scanner_ecu_hints.json',
          'dtc_scanner_texts.json', 'dtc_scanner_ambiguous.json')
 

@@ -9,7 +9,7 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const kit = path.join(ROOT, 'kit', 'runtime');
 const { ReadOnlyDiag, check, READ, MAX_DIDS } = require(path.join(kit, 'readonly-diag'));
 const { decode, field, format, split, masked } = require(path.join(kit, 'sgbd'));
-const STD = require(path.join(ROOT, 'apps', 'live_data', 'std'));
+const STD = require(path.join(ROOT, 'apps', 'dimon_live_data', 'std'));
 
 const quiet = { info() {}, warn() {}, error() {} };
 
@@ -168,14 +168,14 @@ async function main() {
     }));
 
     /* ---------- Useful list: every candidate is in the built-in catalog, units convert ---------- */
-    const USEFUL = require(path.join(ROOT, 'apps', 'live_data', 'useful'));
-    const BUILTIN = path.join(ROOT, 'apps', 'live_data', 'builtin');
+    const USEFUL = require(path.join(ROOT, 'apps', 'dimon_live_data', 'useful'));
+    const BUILTIN = path.join(ROOT, 'apps', 'dimon_live_data', 'builtin');
     const dme = JSON.parse(fs.readFileSync(path.join(BUILTIN, 'DME8FF_R.json'), 'utf8'));
     const dmeMeta = JSON.parse(fs.readFileSync(path.join(BUILTIN, 'DME8FF_R.meta.json'), 'utf8'));
     assert.ok(dmeMeta.builtin && dmeMeta.order.length === Object.keys(dme).length && dmeMeta.order.every((d) => dme[d]), 'built-in catalog: its order lists every identifier');
     const sgbdIndex = JSON.parse(fs.readFileSync(path.join(BUILTIN, 'sgbd_index.json'), 'utf8'));
     assert.ok(Object.keys(sgbdIndex).some((k) => /^12 /.test(k) && sgbdIndex[k] === 'DME8FF_R'), 'built-in SGBD index names the B58 engine unit');
-    const catFile = path.join(ROOT, 'apps', 'live_data', 'catalog', 'DME8FF_R.json');
+    const catFile = path.join(ROOT, 'apps', 'dimon_live_data', 'catalog', 'DME8FF_R.json');
     const full = fs.existsSync(catFile) ? JSON.parse(fs.readFileSync(catFile, 'utf8')) : null;
     if (full) Object.keys(dme).forEach((d) => assert.deepStrictEqual(dme[d], full[d], 'built-in ' + d + ' as the full catalog has it (sgbd_catalog.py --builtin)'));
     const names = new Set();
@@ -274,14 +274,14 @@ async function main() {
     }
 
     /* ---------- car signals: what they need, how they read, the fuel signal's scaling ---------- */
-    const SIG = require(path.join(ROOT, 'apps', 'live_data', 'signals'));
+    const SIG = require(path.join(ROOT, 'apps', 'dimon_live_data', 'signals'));
     const ids = new Set();
     SIG.GROUPS.forEach((g) => g.items.forEach((it) => {
         assert.ok(!ids.has(it.id), 'signal ' + it.id + ' listed twice'); ids.add(it.id);
         assert.ok(it.name && (it.i || it.calc || it.flow || it.tc), it.id + ': name and source');
         SIG.sourcesOf(it).forEach((s) => assert.ok(s.f && (s.m || s.fn), it.id + ': field and member'));
     }));
-    const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'live_data', 'app.json'), 'utf8'));
+    const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'dimon_live_data', 'app.json'), 'utf8'));
     const need = SIG.fields();
     Object.keys(need).forEach((i) => need[i].forEach((f) => assert.ok(spec.signals[i] && spec.signals[i][f], 'app.json lists ' + i + '.' + f)));
     Object.keys(spec.signals).forEach((i) => Object.keys(spec.signals[i]).forEach((f) => {
@@ -346,7 +346,7 @@ async function main() {
     });
 
     /* ---------- screens of your own (screens.js) and the home-screen widget ---------- */
-    const SCR = require(path.join(ROOT, 'apps', 'live_data', 'screens'));
+    const SCR = require(path.join(ROOT, 'apps', 'dimon_live_data', 'screens'));
     const lids = SCR.LAYOUTS.map((l) => l.id);
     assert.strictEqual(new Set(lids).size, lids.length, 'layout ids unique');
     SCR.LAYOUTS.forEach((l) => {
@@ -392,7 +392,7 @@ async function main() {
     const wb = {}; ['small', 'medium', 'large'].forEach((f) => { wb[f] = SCR.widgetBox(384, 256, [0.09, 0.1], f); });
     assert.ok(inside(wb.large, { x: 0, y: 0, w: 384, h: 256 }) && inside(wb.medium, wb.large) && inside(wb.small, wb.medium), 'widget sizes nest ' + JSON.stringify(wb));
     assert.deepStrictEqual(SCR.widgetBox(384, 256, [0.1, 0.1, 0.1, 0.1], 'nope'), SCR.widgetBox(384, 256, [0.1, 0.1], 'medium'), 'safe: 2 or 4 shares, medium by default');
-    const aspec = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'live_data', 'app.json'), 'utf8'));
+    const aspec = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'dimon_live_data', 'app.json'), 'utf8'));
     assert.ok(aspec.startWidget && aspec.startWidget.image && aspec.startWidget.size, 'a home-screen widget');
     const wset = aspec.settings.find((s) => s.key === 'widget');
     assert.ok(wset && wset.options.length === SCR.MAX_SCREENS, 'the widget can show each screen');
@@ -419,7 +419,7 @@ async function main() {
     // (it uses the kit as the built app has it: ./kit = kit/runtime)
     const stage = fs.mkdtempSync(path.join(os.tmpdir(), 'live-data-app-'));
     fs.symlinkSync(kit, path.join(stage, 'kit'), 'dir');
-    fs.copyFileSync(path.join(ROOT, 'apps', 'live_data', 'picker.js'), path.join(stage, 'picker.js'));
+    fs.copyFileSync(path.join(ROOT, 'apps', 'dimon_live_data', 'picker.js'), path.join(stage, 'picker.js'));
     process.on('exit', () => fs.rmSync(stage, { recursive: true, force: true }));
     const PICK = require(path.join(stage, 'picker'));
     const picked = [];
@@ -455,7 +455,7 @@ async function main() {
     assert.ok(Math.abs(price.p - 2.0) < 1e-9 && prs.press() === 'close', 'fuel price: the knob 0.10 a step, press keeps it');
 
     /* ---------- the demo engine unit answers with values that make sense ---------- */
-    const DEMO = require(path.join(ROOT, 'apps', 'live_data', 'demo'));
+    const DEMO = require(path.join(ROOT, 'apps', 'dimon_live_data', 'demo'));
     let answered = 0;
     Object.keys(dme).forEach((d) => {
         const e = dme[d], r = DEMO.reply(0x12, 0x22, parseInt(d, 16), 1, e);
@@ -467,7 +467,7 @@ async function main() {
     assert.ok(answered > Object.keys(dme).length / 2, 'demo: most built-in engine values answer (' + answered + ')');
 
     /* ---------- the trip computer (trips.js) ---------- */
-    const TR = require(path.join(ROOT, 'apps', 'live_data', 'trips'));
+    const TR = require(path.join(ROOT, 'apps', 'dimon_live_data', 'trips'));
     let tq = new TR.Trips({ price: 0 }), tt0 = new Date(2026, 9, 28, 8, 0, 0).getTime(), tnow = tt0;
     const drive = (secs, o) => { let r = { started: false, ended: null }; for (let k = 0; k < secs * 2; k++) { tnow += 500; const x = tq.feed(tnow, o); if (x.started) r.started = true; if (x.ended) r.ended = x.ended; } return r; };
     assert.ok(!drive(60, { running: 'off', speed: 0 }).started, 'no trip with the engine off');
@@ -515,8 +515,8 @@ async function main() {
     assert.strictEqual(new TR.Trips({ trips: [{ start: 'x' }], days: { bad: 1 }, price: -3 }).trips.length, 0, 'a damaged file is ignored');
 
     /* ---------- the app talks to the car only through the read-only link ---------- */
-    const appSrc = fs.readFileSync(path.join(ROOT, 'apps', 'live_data', 'main.js'), 'utf8');
-    assert.ok(!/signals\.(set|call|proxy)\(|setValue\(/.test(appSrc + fs.readFileSync(path.join(ROOT, 'apps', 'live_data', 'signals.js'), 'utf8')),
+    const appSrc = fs.readFileSync(path.join(ROOT, 'apps', 'dimon_live_data', 'main.js'), 'utf8');
+    assert.ok(!/signals\.(set|call|proxy)\(|setValue\(/.test(appSrc + fs.readFileSync(path.join(ROOT, 'apps', 'dimon_live_data', 'signals.js'), 'utf8')),
         'car signals: only watched, never set or called');
     assert.ok(!/new\s+Diag\s*\(/.test(appSrc), 'no full Diag in the app');
     assert.ok(!/\{[^}]*\bDiag\b[^}]*\}\s*=\s*require\('\.\/kit\/diag'\)/.test(appSrc), 'the app does not import Diag');

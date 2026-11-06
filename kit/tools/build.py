@@ -2,7 +2,7 @@
 """MGU App Kit build: apps/<id>/app.json + main.js  ->  installable app.
 
     python3 kit/tools/build.py            # build every app in apps/
-    python3 kit/tools/build.py car_vitals # just one
+    python3 kit/tools/build.py dimon_car_vitals # just one
 
 Produces in dist/:
     <id>@<ver>.mgu   install bundle for deploy/mgu-app-install.sh (VM and car)
@@ -462,7 +462,7 @@ def build(app_id, language='en', preview_only=False):
             shutil.copy(os.path.join(adir, f), os.path.join(src, 'javascript', f))
             print('  %s (committed)' % f)
     # kit runtime
-    if app_id == 'dtc_scanner' and language in ('zh-CN', 'ru'):
+    if app_id == 'dimon_dtc_scanner' and language in ('zh-CN', 'ru'):
         module = 'build_diagnostic_zh' if language == 'zh-CN' else 'build_diagnostic_ru'
         catalog = __import__(module).catalog
         with tempfile.TemporaryDirectory(prefix='mgu-diagnostic-') as temporary:
@@ -494,7 +494,7 @@ def build(app_id, language='en', preview_only=False):
                         os.path.join(src, 'javascript', 'kit', 'fonts', name))
     if language == 'zh-CN':
         # Diagnostic glyphs are Chinese-only; keep the English runtime atlas intact.
-        if app_id == 'dtc_scanner':
+        if app_id == 'dimon_dtc_scanner':
             shutil.copy(os.path.join(KIT, 'localization', 'fonts', 'diagnostic-zh-CN.json'),
                         os.path.join(src, 'javascript', 'kit', 'fonts', 'cjk.json'))
     if credit(language):

@@ -6,8 +6,8 @@
 # mgu-renderd --replay renders every frame, ffmpeg turns them into a 50 fps GIF (the
 # fastest rate GIF players honour), 1280 px wide.
 #
-#   kit/tools/make_gif.sh docs/media/redline.gif redline 6 6
-#   kit/tools/make_gif.sh out.gif car_vitals 6 4 BTN_PAGE BTN_PAGE BTN_PAGE   # chassis page
+#   kit/tools/make_gif.sh docs/media/redline.gif dimon_redline 6 6
+#   kit/tools/make_gif.sh out.gif dimon_car_vitals 6 4 BTN_PAGE BTN_PAGE BTN_PAGE   # chassis page
 #
 # Needs: a build (dist/<app>), the mgu-renderd-build docker image and build/mgu-renderd
 # (kit/renderd/README.md), ffmpeg. BG=<1920x720 png> puts a screenshot of the HMI under it

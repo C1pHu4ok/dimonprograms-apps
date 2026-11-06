@@ -54,7 +54,7 @@ const Car = require(path.join(KIT, 'car'));
 
 /* ---------- eDrive's settings per hybrid system ---------- */
 {
-    const spec = require(path.join(ROOT, 'apps', 'edrive', 'app.json'));
+    const spec = require(path.join(ROOT, 'apps', 'dimon_edrive', 'app.json'));
     const PHEV_ONLY = ['range20', 'reserve', 'designKwh', 'price'];
     const offered = (hybrid) => {
         const values = {};
@@ -71,7 +71,7 @@ const Car = require(path.join(KIT, 'car'));
 }
 
 /* ---------- the widgets ask for twice the pixels, the size their layouts are drawn in stays ---------- */
-['edrive', 'live_data'].forEach((id) => {
+['dimon_edrive', 'dimon_live_data'].forEach((id) => {
     const sw = require(path.join(ROOT, 'apps', id, 'app.json')).startWidget;
     assert.deepStrictEqual(sw.size, [384, 256], id);
     assert.strictEqual(sw.scale, 2, id);

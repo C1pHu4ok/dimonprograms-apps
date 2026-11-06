@@ -3,9 +3,9 @@ name: Experimental apps
 on:
   pull_request:
     paths:
-      - 'apps/zf8hp/**'
-      - 'apps/live_adjustments/**'
-      - 'apps/live_data/**'
+      - 'apps/dimon_zf8hp/**'
+      - 'apps/dimon_live_adjustments/**'
+      - 'apps/dimon_live_data/**'
       - 'kit/runtime/diag.js'
       - 'kit/runtime/readonly-diag.js'
       - 'kit/runtime/sgbd.js'
@@ -20,9 +20,9 @@ on:
       - '.github/workflows/experimental-apps.yml'
   push:
     paths:
-      - 'apps/zf8hp/**'
-      - 'apps/live_adjustments/**'
-      - 'apps/live_data/**'
+      - 'apps/dimon_zf8hp/**'
+      - 'apps/dimon_live_adjustments/**'
+      - 'apps/dimon_live_data/**'
       - 'kit/runtime/diag.js'
       - 'kit/runtime/readonly-diag.js'
       - 'kit/runtime/sgbd.js'

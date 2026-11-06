@@ -1,6 +1,6 @@
 'use strict';
 const assert = require('assert'), fs = require('fs'), path = require('path');
-const stage = path.resolve(process.argv[2] || 'dist/dtc_scanner/source/javascript');
+const stage = path.resolve(process.argv[2] || 'dist/dimon_dtc_scanner/source/javascript');
 const { diagnosticText } = require(path.join(stage, 'diagnostic-text'));
 const { fitText } = require(path.join(stage, 'kit/text-layout'));
 const { Canvas } = require(path.join(stage, 'kit/canvas'));

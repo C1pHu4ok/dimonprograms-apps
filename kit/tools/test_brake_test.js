@@ -36,7 +36,7 @@ Module._load = function (req, parent, isMain) {
     if (req.startsWith('./kit/')) return load.call(this, path.join(kit, req.slice(6)), parent, isMain);
     return load.call(this, req, parent, isMain);
 };
-require(path.join(ROOT, 'apps/brake_test/main'));
+require(path.join(ROOT, 'apps/dimon_brake_test/main'));
 Module._load = load;
 
 (async () => {

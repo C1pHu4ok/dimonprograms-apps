@@ -5,13 +5,13 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const root = path.resolve(__dirname, '..', '..');
-const E = require(path.join(root, 'apps/zf8hp/egs'));
-const C = require(path.join(root, 'apps/zf8hp/catalog'));
+const E = require(path.join(root, 'apps/dimon_zf8hp/egs'));
+const C = require(path.join(root, 'apps/dimon_zf8hp/catalog'));
 // Stage only the three reader sources and the transport helper. No SDK or build is needed.
 const testSource = fs.mkdtempSync(path.join(os.tmpdir(), 'zf8hp-source-'));
 fs.mkdirSync(path.join(testSource, 'kit'));
 for (const name of ['reader', 'catalog', 'egs']) {
-    fs.copyFileSync(path.join(root, 'apps/zf8hp', name + '.js'), path.join(testSource, name + '.js'));
+    fs.copyFileSync(path.join(root, 'apps/dimon_zf8hp', name + '.js'), path.join(testSource, name + '.js'));
 }
 fs.copyFileSync(path.join(root, 'kit/runtime/diag.js'), path.join(testSource, 'kit/diag.js'));
 process.on('exit', () => fs.rmSync(testSource, { recursive: true, force: true }));

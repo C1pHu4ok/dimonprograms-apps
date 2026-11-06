@@ -10,7 +10,7 @@ const os = require('os');
 const path = require('path');
 const Module = require('module');
 const ROOT = path.join(__dirname, '..', '..');
-const { RunTimer } = require(path.join(ROOT, 'apps/draggy/timer'));
+const { RunTimer } = require(path.join(ROOT, 'apps/dimon_draggy/timer'));
 
 const SPLITS = [{ key: '0-50', from: 0, to: 50 }, { key: '0-100', from: 0, to: 100 }, { key: '100-200', from: 100, to: 200 },
     { key: '0-200', from: 0, to: 200 }, { key: 'qm', dist: 402.336 }];
@@ -98,7 +98,7 @@ Module._load = function (req, parent, isMain) {
 Date.now = () => now;
 const realInterval = global.setInterval;
 global.setInterval = (fn) => { ticks.push(fn); return 0; };
-require(path.join(ROOT, 'apps/draggy/main'));
+require(path.join(ROOT, 'apps/dimon_draggy/main'));
 global.setInterval = realInterval;
 Module._load = load;
 

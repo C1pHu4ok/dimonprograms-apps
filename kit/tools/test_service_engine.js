@@ -13,8 +13,8 @@ const EventEmitter = require('events');
 const Module = require('module');
 
 const ROOT = path.join(__dirname, '..', '..'), KIT = path.join(ROOT, 'kit', 'runtime');
-const MAIN = path.join(ROOT, 'apps', 'service', 'main.js');
-const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'service', 'app.json'), 'utf8'));
+const MAIN = path.join(ROOT, 'apps', 'dimon_service', 'main.js');
+const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'dimon_service', 'app.json'), 'utf8'));
 const { Recorder: Canvas } = require(path.join(KIT, 'record'));
 const themes = require(path.join(KIT, 'themes'));
 const realDiag = require(path.join(KIT, 'diag'));

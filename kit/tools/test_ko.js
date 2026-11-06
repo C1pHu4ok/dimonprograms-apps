@@ -5,10 +5,10 @@ const path = require('path');
 const vm = require('vm');
 const { spawnSync } = require('child_process');
 const root = path.resolve(__dirname, '../..');
-const stage = path.join(root, 'dist/service');
+const stage = path.join(root, 'dist/dimon_service');
 // The offline stage contains real app/runtime code and font data, never a fake SDK.
 const built = spawnSync(process.env.MGU_TEST_PYTHON || (process.platform === 'win32' ? 'python' : 'python3'),
-    [path.join(__dirname, 'build.py'), '--language', 'ko', '--preview-only', 'service'], { encoding: 'utf8' });
+    [path.join(__dirname, 'build.py'), '--language', 'ko', '--preview-only', 'dimon_service'], { encoding: 'utf8' });
 assert.strictEqual(built.status, 0, built.stderr);
 const kit = path.join(stage, 'source/javascript/kit');
 const { t, plural } = require(path.join(kit, 'i18n'));
@@ -41,7 +41,7 @@ assert.strictEqual(fonts.get('num', 96, '1234').family, 'num');
 const f = fonts.get('label', 30, '2027년 9월');
 assert(Array.from('2027년 9월').every((ch) => f.glyphs[ch.codePointAt(0)]));
 
-const source = fs.readFileSync(path.join(root, 'apps/service/main.js'), 'utf8');
+const source = fs.readFileSync(path.join(root, 'apps/dimon_service/main.js'), 'utf8');
 const context = { translate: t, getLanguage: () => 'ko', plural, fonts };
 vm.createContext(context);
 vm.runInContext(source.slice(source.indexOf('const MONTHS ='), source.indexOf('\nconst W =')) + '\nthis.parse = parseDue;', context);

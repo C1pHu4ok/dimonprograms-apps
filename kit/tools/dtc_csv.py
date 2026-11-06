@@ -8,7 +8,7 @@ different texts: how many - the scanner shows "n possible texts" for those inste
 into out_dir, default dtc_tables/ (not in git: the texts are BMW's). Then:
 
     python kit/tools/dtc_tables.py dtc_tables
-    python kit/tools/build.py dtc_scanner
+    python kit/tools/build.py dimon_dtc_scanner
 
 Headings Code + Description in any case (also FaultCode/DTC/Fehlercode, Text/Fehlertext); a BOM and
 ; or tab separators are fine. Only 3-byte BMW codes (6 hex digits) are taken.

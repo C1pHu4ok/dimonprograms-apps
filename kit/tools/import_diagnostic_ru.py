@@ -116,7 +116,7 @@ def pair_rows(english, russian):
 def load_pack_tables():
     import struct
     import zlib
-    data = (ROOT/'apps/dtc_scanner/dtc_db.pack').read_bytes()
+    data = (ROOT/'apps/dimon_dtc_scanner/dtc_db.pack').read_bytes()
     length = struct.unpack('<I', data[8:12])[0]
     index = json.loads(zlib.decompress(data[12:12+length], -15))
     base = 12 + length

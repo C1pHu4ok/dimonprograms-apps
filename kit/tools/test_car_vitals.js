@@ -13,8 +13,8 @@ const EventEmitter = require('events');
 const Module = require('module');
 
 const ROOT = path.join(__dirname, '..', '..'), KIT = path.join(ROOT, 'kit', 'runtime');
-const MAIN = path.join(ROOT, 'apps', 'car_vitals', 'main.js');
-const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'car_vitals', 'app.json'), 'utf8'));
+const MAIN = path.join(ROOT, 'apps', 'dimon_car_vitals', 'main.js');
+const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'dimon_car_vitals', 'app.json'), 'utf8'));
 const { Recorder: Canvas } = require(path.join(KIT, 'record'));
 const themes = require(path.join(KIT, 'themes'));
 

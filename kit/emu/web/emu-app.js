@@ -397,7 +397,7 @@ $('#clearlog').onclick = () => $('#log').replaceChildren();
  * tile opens it again ({t:'hmi', a:'open'}), another app's tile starts that one ({t:'app'}: it opens once started).
  * Sizes in the screen's 1920 x 720 px (emu.css .pk-*). */
 // the order of the tiles on the car (the user's photo of it); apps not listed follow by name
-const ORDER = ['brake_test', 'warmup', 'service', 'redline', 'gforce', 'edrive', 'dyno', 'dtc_scanner', 'draggy', 'doom', 'car_vitals'];
+const ORDER = ['dimon_brake_test', 'dimon_warmup', 'dimon_service', 'dimon_redline', 'dimon_gforce', 'dimon_edrive', 'dimon_dyno', 'dimon_dtc_scanner', 'dimon_draggy', 'dimon_doom', 'dimon_car_vitals'];
 const PK = { cols: 5, row: 236, padTop: 18, padBottom: 30, view: 640, track: 590 };   // (emu.css: grid rows, padding, .pk-body / .pk-bar height)
 const P = { tiles: [], focus: 0, scroll: 0, busy: null, shown: false };
 function buildPicker(apps, titles) {

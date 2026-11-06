@@ -20,10 +20,10 @@ for tag in ('en', 'ru', 'zh-CN'):
 # silently leave an older English stage being previewed.
 for tag in ('ko-kr', 'ko-KR'):
     result = subprocess.run([sys.executable, str(ROOT / 'kit/tools/build.py'),
-                             '--language', tag, '--preview-only', 'redline'],
+                             '--language', tag, '--preview-only', 'dimon_redline'],
                             cwd=ROOT, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
-    staged = ROOT / 'dist/redline/source/javascript/kit'
+    staged = ROOT / 'dist/dimon_redline/source/javascript/kit'
     locale = json.loads((staged / 'locale.json').read_text(encoding='utf-8'))
     spec = json.loads((staged / 'app-spec.json').read_text(encoding='utf-8'))
     assert locale['language'] == 'ko' and locale['strings']['SPEED'] == '속도'

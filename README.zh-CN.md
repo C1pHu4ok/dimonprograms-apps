@@ -132,9 +132,9 @@ BMW 应用平台提供的自定义图形显示方式，是用 JavaScript 画图�
 | **G-Force（G 值仪表）** | 摩擦圆带渐隐轨迹，随各方向实际使用的附着力扩展边界；显示横纵向实时条、各方向本次峰值、超过 0.5 g 的持续时间和历史记录。G 值数字按设置频率更新，默认每秒 10 次；圆点与轨迹以完整帧率移动。 |
 | **Warm-Up（暖机助手）** | 机油和冷却液仪表，以及暖机计算器：根据实测升温速率计算达到工作温度所需分钟数和预计时刻，并投射在温度趋势图上；样本不足时使用典型速率，混动车纯电行驶时显示发动机关闭。提供随油温升高的安全转速上限，以及激烈驾驶后的涡轮冷却倒计时：高转或高功率后需温和驾驶 30 秒至 3 分钟，取决于此前激烈驾驶时长。 |
 | **M Vitals（M 车辆仪表）** | 多页运动仪表及峰值：转速、增压、带 D/S/M 与数字挡位的车速、iDrive 运动显示提供的功率（百分比乘以车辆最大功率，适用于原厂及调校发动机；kW/hp/PS）、扭矩（Nm/lb-ft）、冷却液、机油温度及 G 值等。燃油与点火页显示进气温度 IAT、高压燃油 HPFP/油轨及低压燃油 LPFP 压力、点火正时、目标/实际增压和请求/实际空气充量（均附 5 分钟曲线；BMW DME DID 4AB0 / 580B / 480C / 5813，OBD PID 0x70 作为后备），以及本次驾驶循环各缸失火计数（OBD 服务 06）；通过 UDS/OBD 从 DME 读取，标准 OBD 标识可在 `app.json` 的 config.dme 调整，同时显示进气比车外高多少度。温度页另从变速箱单元 EGS 读取油温（config.dme.egs）。各项均可自动/显示/隐藏，未应答项让出空间。底盘页大字显示胎压（对照目标）和胎温，xDrive 卡片可设自动（车辆报告四驱后显示）、显示或隐藏，适用于后驱车；无原车扭矩分配信号时，读取分动箱 LMV 的前轴扭矩（UDS `22 DB32`，config.xdrive），结合发动机扭矩和挡位估算，卡片注明来源。增压、变速箱油温、轮胎卡片和胎温同样支持自动/显示/隐藏；自动模式收到真实数据后显示。255 °C 胎温等不合理值及始终为 0 °C 的变速箱油温等不变值视为无数据；原始值写入日志（`raw tyre temperature`、`raw gearbox oil`、`raw FES boost`），用于校准 config.scaling。增压优先来自运动显示，无可用值时从 DME 的 OBD 读取增压/歧管绝对压力减环境气压（config.dme.boost 中的候选项），也可用 Boost from 手动指定。接近红线或增压上限时，仪表由蓝转红。 |
-| **Fault Scanner（故障检测）** | 经主机诊断网关通过 UDS 扫描全车控制单元，按模块显示故障码与状态，实时显示 Check Control 消息，支持两次按键确认清除。故障文本来自本车编码工具导出（`kit/tools/dtc_texts.py`）、少量手写文本，以及可选导入的全控制单元故障数据库（`--db`）；对有故障的单元读取 SGBD 索引（UDS 22 F1 50）以选择名称和文本。仅导入英文文本，混有德文的条目被跳过，相应故障无说明。CSV 故障码列表（`--codes`）为适用单元补齐仍缺失的说明；执行 `--db` 后用 `kit/tools/dtc_tables.py` 生成 `dtc_scanner_*.json`，按单元类型与地址补充文本。构建用 `pack_data.py` 将约 19 MB 文本压入约 3.7 MB 的 `dtc_db.pack`，应用只解压当前故障所需的几 KB。仓库已获许可随附故障文本表和 SGBD 索引的压缩包 `apps/dtc_scanner/dtc_db.pack`；自行导入的 `dtc_db/` 会替代它。导入数据库和车辆导出文件不进入 git。 |
+| **Fault Scanner（故障检测）** | 经主机诊断网关通过 UDS 扫描全车控制单元，按模块显示故障码与状态，实时显示 Check Control 消息，支持两次按键确认清除。故障文本来自本车编码工具导出（`kit/tools/dtc_texts.py`）、少量手写文本，以及可选导入的全控制单元故障数据库（`--db`）；对有故障的单元读取 SGBD 索引（UDS 22 F1 50）以选择名称和文本。仅导入英文文本，混有德文的条目被跳过，相应故障无说明。CSV 故障码列表（`--codes`）为适用单元补齐仍缺失的说明；执行 `--db` 后用 `kit/tools/dtc_tables.py` 生成 `dtc_scanner_*.json`，按单元类型与地址补充文本。构建用 `pack_data.py` 将约 19 MB 文本压入约 3.7 MB 的 `dtc_db.pack`，应用只解压当前故障所需的几 KB。仓库已获许可随附故障文本表和 SGBD 索引的压缩包 `apps/dimon_dtc_scanner/dtc_db.pack`；自行导入的 `dtc_db/` 会替代它。导入数据库和车辆导出文件不进入 git。 |
 | **eDrive（EDrive助手）** | 面向插电混动/电动车，按实际驾驶学习纯电续航：以发动机启动阈值以上的可用电量，结合每公里行驶能耗（最近约 60 km 纯电行驶）与空调、车载电器每小时功耗计算。冷天制热、热天制冷的功耗按外温区间，在发动机关闭且静止/缓行时学习；行驶能耗按低于 35、35–60、60–85、85–110、高于 110 km/h 分档，按当前速度估计续航，因此高速续航比市区少。行驶时也根据同速下相对空调关闭状态的额外能耗学习空调功耗；座椅和方向盘加热按挡位计入。能量页显示各速度档能耗、当前驱动/空调/座椅/方向盘/车载用电及各自消耗的公里数、车辆自身功率分配和高压电池温度（续航页也显示）。空调按小时耗电，拥堵时对里程影响更大，页面显示 kW 和损失里程。空调开关读取 ClimateMaster `statusClimateSystemOn`：关闭时仅扣除独立学习的车载用电（通常 0.3 kW），续航升高；开启时下降，显示 CLIMATE ON/OFF，A/C 按键开启时另有 A/C 标记。尚未学习时按外温估算：满电在 20 °C 约 50 km、10 °C 为 40–45、0 °C 为 30–38、−10 °C 为 20–30，按本车 20 °C 续航缩放，并显示高低范围、SOH（满充容量相对新电池的百分比与 kWh）及当前电量 kWh。新电池容量可设置，例如 330e/530e 为 12 kWh、X5 45e 为 24 kWh。还显示上次高压充电增加的百分比/kWh/里程（主机休眠期间充电会在下次启动显示）和 12 V 电压。充电日志记录日期、充入电量、增加里程和按电价计算的费用（默认 0.25 €/kWh），提供月度/累计总计和 14 天图表。无混动系统时检测到电池单元不应答，只显示 12 V，或将 Hybrid system 设为 No。电量和 SOH 通过 UDS 读取，诊断页展示原始应答，便于按车型修改 `app.json` 的 DID。 |
-| **eDrive 实时页面** | `apps/edrive/live.js` 默认适配 24 kWh 的 X5 xDrive45e，可调整用于其他插混车型。**电池：**每秒读取电压和电流，相乘得到实时 kW，正值为驱动、负值为回收或充电；条形范围为电池当前允许的最大回收至最大驱动功率，附两分钟曲线、电芯与冷却液温度；逐个电芯电压条标出最高、最低及压差。本次行程统计耗电、回收、净耗电、驱动与空调份额及峰值；菜单 Reset drive totals 开始新行程。**能量页空调：**发动机关闭、未插电且静止时，电池只供应车内负载，因此总功耗减去空调关闭时学习的基线，即实际制热/制冷功耗；该行优先显示这个测量值或空调单元自身数据，替代估计值。经 SME 的 UDS 读取 `DD68` 电压、`DD69` 电流、`DDBF` 电芯电压、`DDC0` 电芯温度、`DD6C` 冷却液、`DD7D` 电流限值（采用 OVMS 在 i3 上解析的 BMW 标识）；诊断页显示应答，若电流方向相反可用 `powerSign` 翻转。**主页小组件**（`startWidget`）的大组件显示实时功率、状态、电压/电流、电量、功率条、电芯和本次行程，小组件以文本行显示相同信息；Battery unit 与 Scan 页面由 Diagnostics pages 设置控制。 |
+| **eDrive 实时页面** | `apps/dimon_edrive/live.js` 默认适配 24 kWh 的 X5 xDrive45e，可调整用于其他插混车型。**电池：**每秒读取电压和电流，相乘得到实时 kW，正值为驱动、负值为回收或充电；条形范围为电池当前允许的最大回收至最大驱动功率，附两分钟曲线、电芯与冷却液温度；逐个电芯电压条标出最高、最低及压差。本次行程统计耗电、回收、净耗电、驱动与空调份额及峰值；菜单 Reset drive totals 开始新行程。**能量页空调：**发动机关闭、未插电且静止时，电池只供应车内负载，因此总功耗减去空调关闭时学习的基线，即实际制热/制冷功耗；该行优先显示这个测量值或空调单元自身数据，替代估计值。经 SME 的 UDS 读取 `DD68` 电压、`DD69` 电流、`DDBF` 电芯电压、`DDC0` 电芯温度、`DD6C` 冷却液、`DD7D` 电流限值（采用 OVMS 在 i3 上解析的 BMW 标识）；诊断页显示应答，若电流方向相反可用 `powerSign` 翻转。**主页小组件**（`startWidget`）的大组件显示实时功率、状态、电压/电流、电量、功率条、电芯和本次行程，小组件以文本行显示相同信息；Battery unit 与 Scan 页面由 Diagnostics pages 设置控制。 |
 | **Service（保养信息）** | 读取 BMW CBS 保养需求，与 iDrive“车辆状态 > 保养需求”一致：机油、制动器、制动液、车辆检查、年检等，每项使用车辆原有语言和单位显示距离、日期，以绿/黄/红区分，并给出下次保养摘要及详细提示。数据来自仪表 `KombiInterface_2`。只读：这些车辆没有提供供主机调用的保养复位，需要在仪表菜单或维修车间完成。 |
 | **Doom** | Freedoom: Phase 1（四章免费游戏数据）以 WebAssembly 在主机运行。3D 视图使用全屏完整分辨率 1920 × 504，扩展 Doom 的视野以适应屏幕；状态栏、菜单及消息以 4:3 叠加，VM 上可达 35 fps。先进入 Play/Continue、New game 和设置主菜单，游戏中无页头或按钮栏，BACK 返回菜单。**旋转控制器瞄准，推杆行走和横移，按下开火与开门，双击切换下一武器。** 游戏中独占旋钮、按压与倾斜，向前推不再打开 HMI 下拉菜单，向左推不再离开游戏；BACK、MENU 和触摸始终有效。依赖安装器加载到 HMI 的控制器门控插件，见 [5.1](#51-what-deploy-carsh-install-does)。没有插件时仍读取控制器信号，但 HMI 也会响应。离开页面或被弹窗/来电遮挡时暂停并自动存档，下次从停止位置继续。主菜单可设置难度、章节、移动速度（默认慢走，可选步行/跑步）、瞄准速度与方向、渲染分辨率（全/中/低）。采用 GPL-2.0，见[许可证](#doom-and-renderer-licences)。默认仅停车运行，行驶时保存并等待；Parked only 可关闭。 |
 
@@ -209,7 +209,7 @@ Windows PowerShell 也可执行这些命令，内置 scp 和 tar；请将 `x_cal
 python3 kit/tools/build.py            # 全部应用 -> dist/<id>@<ver>.mgu
 python3 kit/tools/build.py redline    # 仅一个应用
 python3 kit/tools/build.py --language zh-CN   # 简体中文 -> dist/<id>@<ver>-zh.cn.2.mgu
-node kit/tools/preview.js dist/redline preview wait=10   # 在电脑上预览 -> preview/*.png
+node kit/tools/preview.js dist/dimon_redline preview wait=10   # 在电脑上预览 -> preview/*.png
 ```
 
 Windows 将 `python3` 换成 `python`。默认构建英文；`--language zh-CN` 将所有应用构建为简体中文，语言在构建时固定，不受车机语言设置影响。安装另一语言包相当于更新同一应用，不会另装一套。
@@ -266,13 +266,13 @@ sh deploy-car.sh restore    # 恢复原厂（要求输入 YES）
 
 Doom 像其他应用一样安装，除非构建时只列出其他应用，否则包含在套件中。四个区别：
 
-1. **首次构建下载游戏数据。** git 不保存 WAD。第一次 `build.py`/`make-car-kit` 从 [Freedoom 发布页](https://github.com/freedoom/freedoom/releases/tag/v0.13.0) 下载 Freedoom: Phase 1 0.13.0 的 24 MB zip，核对 SHA-256，保存为 `apps/doom/freedoom1.wad`，以后复用。电脑无法联网时可在别处下载 `freedoom-0.13.0.zip` 并把其中的 `freedoom1.wad` 放到 `apps/doom/`。其他 WAD，包括 id 原版 `doom.wad`，无法通过校验。
+1. **首次构建下载游戏数据。** git 不保存 WAD。第一次 `build.py`/`make-car-kit` 从 [Freedoom 发布页](https://github.com/freedoom/freedoom/releases/tag/v0.13.0) 下载 Freedoom: Phase 1 0.13.0 的 24 MB zip，核对 SHA-256，保存为 `apps/dimon_doom/freedoom1.wad`，以后复用。电脑无法联网时可在别处下载 `freedoom-0.13.0.zip` 并把其中的 `freedoom1.wad` 放到 `apps/dimon_doom/`。其他 WAD，包括 id 原版 `doom.wad`，无法通过校验。
 2. **体积更大。** 引擎与游戏数据约 11 MB，推送稍慢，无需额外处理。
 3. **全屏需要 GPU 渲染器。** 套件会安装 `mgu-renderd`；未运行时回退为普通应用区域内的较小画面。
 4. **安装结束会为控制器门控插件重启一次主机。** `deploy-car.sh install` 将 `mgu-inputgate.so` 配置为随 HMI 加载，让游戏独占控制器，见 [5.1](#51-what-deploy-carsh-install-does)。它在主机启动时加载，因此安装后会黑屏约一分钟，随后自动恢复。若插件导致 HMI 无法正常启动，会自动排除插件。要稍后重启可用 `NO_REBOOT=1 sh deploy-car.sh install`，插件下次用车时加载；不需要插件可用 `NO_INPUTGATE=1 sh deploy-car.sh install`。此时 Doom 仍能运行，但 HMI 也会响应控制器，例如向前推会打开下拉菜单。
 
 ```sh
-python3 kit/tools/build.py doom                       # -> dist/doom@<ver>.mgu (首次下载 WAD)
+python3 kit/tools/build.py doom                       # -> dist/dimon_doom@<ver>.mgu (首次下载 WAD)
 deploy/make-car-kit.sh doom                           # 仅打包 Doom，不带参数则打包全部应用
 HU=root@<unit-ip> PORT=22 KEY=~/.ssh/id_mgu deploy/push-to-car.sh install
 ```
@@ -486,7 +486,7 @@ MainApp 只显示 BMW 签名服务配置启用的应用，其中不会包含自�
 | `screens` | `canvas` 页面含一张大图和最多 4 个按钮，`BTN_SETTINGS` 打开根据 `settings` 生成的设置页。`"bar": false` 不绘按钮栏，将全高留给游戏，但下方 HMI 按钮仍存在，用于焦点和点击；`"chrome": false` 移除页头、栏和面板，应用占整屏（`cv.place.full`）。`"kind": "menu"` 加 `"items"`（`["button", NAME, label]` 或 `["text", NAME, label]`）创建 HMI 列表页，`"settings": true` 把所有设置放进去，不另建设置页。 |
 | `assets` | 构建下载并按 SHA-256 校验的资源，格式 `[{ "file", "sha256", "url" }]`；zip 可另设 `zipSha256`、`zipMember`，例如 Doom 数据。应用目录里的 `.wasm`、`.wad`、`LICENSE`、`NOTICE` 原样打包。 |
 | `settings` | `choice`、按 `steps` 切换的 `number`、`bool`，保存在 `data/settings.json`。先显示应用设置，再显示主题、更新率、布局、渲染器、演示等屏幕设置。`"markDefault": true` 在默认行附加“默认”；`"reset": n` 的 n 改变时，让每辆车一次性恢复该项新默认值。 |
-| `startWidget` | 可选主页小组件，按 Drive Recorder/Weather 方式生成 `rhmiDataStartWidget/`。`name` 为列表名，`layout` 为 HMI 模板（如 `LT_Table_OnlineApps_DriveRecorderWidget`），`image` 为图像目标单元（如 `BackgroundImage1`），`size` 为图片宽高（HMI 缩放到大组件并居中裁剪，G05 适合 384 × 256），`cells` 为每次放置组件时写入一次的 `{cell: [value, type]}`。用 `ctx.widget.loop(fps, (inst) => canvas)` 绘制，用 `ctx.widget.set(spawnId, cell, value, type)` 更新其他单元；点击打开应用，见 `apps/edrive/live.js`。 |
+| `startWidget` | 可选主页小组件，按 Drive Recorder/Weather 方式生成 `rhmiDataStartWidget/`。`name` 为列表名，`layout` 为 HMI 模板（如 `LT_Table_OnlineApps_DriveRecorderWidget`），`image` 为图像目标单元（如 `BackgroundImage1`），`size` 为图片宽高（HMI 缩放到大组件并居中裁剪，G05 适合 384 × 256），`cells` 为每次放置组件时写入一次的 `{cell: [value, type]}`。用 `ctx.widget.loop(fps, (inst) => canvas)` 绘制，用 `ctx.widget.set(spawnId, cell, value, type)` 更新其他单元；点击打开应用，见 `apps/dimon_edrive/live.js`。 |
 
 **对照服务目录检查标志。** 无 getter 的字段不能使用 `r`，getter ID 为 0 也视为缺失，安装器会拒绝。把主机目录复制为 `reference/someip-interfaces.json` 后执行：
 
@@ -624,7 +624,7 @@ kit/tools/make_gif.sh docs/media/redline.gif redline 6 6 --set coldGuard=false  
 
 ```
 apps/<id>/            app.json + main.js (+ helpers) per app
-apps/doom/            Doom: doom-core.js (WebAssembly runner, files over Node fs), controls.js
+apps/dimon_doom/            Doom: doom-core.js (WebAssembly runner, files over Node fs), controls.js
                       (controller -> keys), doom.wasm (built from third_party/doomgeneric), GPL-2.0
 kit/runtime/          app runtime: mgu.js (platform glue), record.js + display.js + renderd.js
                       (GPU path), canvas.js (software path), gauges.js, themes.js,
@@ -641,10 +641,10 @@ deploy/               make-car-kit.sh/.cmd, push-to-car.sh/.ps1, mgu-app-install
 deploy/car/           deploy-car.sh (runs on the unit) + its README
 docs/                 RHMI widget reference, screenshots (docs/screens), animations (docs/media)
 third_party/doomgeneric/  Doom's engine source (GPL-2.0) with the changes for the app (mgu.patch,
-                      MGU.md) and build.sh, which builds apps/doom/doom.wasm
+                      MGU.md) and build.sh, which builds apps/dimon_doom/doom.wasm
 ```
 
-`apps/<id>/` 保存各应用定义、主程序与辅助文件；`apps/doom/` 含 WebAssembly 运行器、控制器映射及 Doom 引擎；`kit/runtime/` 为平台衔接、GPU/软件绘图、仪表主题、车辆信号、演示和诊断运行时。`kit/renderd/` 是基于 mgu-render 的 C/GLES2/Wayland/ivi GPU 服务，采用 GPL-3.0-or-later，`prebuilt/` 为二进制与源码指纹，`inputgate/` 为控制器门控。`kit/platform/` 为权限模板，`kit/tools/` 为构建、预览、图标字体、SDK 提取、信号与接口生成工具，`kit/icons/` 为 SVG 图标。`deploy/` 为电脑端部署工具，`deploy/car/` 为主机脚本与说明，`docs/` 为 RHMI 文档和媒体。`third_party/doomgeneric/` 为 GPL-2.0 Doom 引擎源码、`mgu.patch`、`MGU.md` 和生成 `apps/doom/doom.wasm` 的 `build.sh`。
+`apps/<id>/` 保存各应用定义、主程序与辅助文件；`apps/dimon_doom/` 含 WebAssembly 运行器、控制器映射及 Doom 引擎；`kit/runtime/` 为平台衔接、GPU/软件绘图、仪表主题、车辆信号、演示和诊断运行时。`kit/renderd/` 是基于 mgu-render 的 C/GLES2/Wayland/ivi GPU 服务，采用 GPL-3.0-or-later，`prebuilt/` 为二进制与源码指纹，`inputgate/` 为控制器门控。`kit/platform/` 为权限模板，`kit/tools/` 为构建、预览、图标字体、SDK 提取、信号与接口生成工具，`kit/icons/` 为 SVG 图标。`deploy/` 为电脑端部署工具，`deploy/car/` 为主机脚本与说明，`docs/` 为 RHMI 文档和媒体。`third_party/doomgeneric/` 为 GPL-2.0 Doom 引擎源码、`mgu.patch`、`MGU.md` 和生成 `apps/dimon_doom/doom.wasm` 的 `build.sh`。
 
 以下内容有意不放入仓库：
 
@@ -660,7 +660,7 @@ third_party/doomgeneric/  Doom's engine source (GPL-2.0) with the changes for th
 
 仓库采用 MIT，但有两部分例外。GPU 渲染器 `kit/renderd` 是 Robert Nisipeanu 和 IterioDev 的 [mgu-render](https://github.com/robertnisipeanu/mgu-store)，采用 GPL-3.0-or-later（`kit/renderd/LICENSE`）；来自本仓库最初渲染器的部分仍同时保留 MIT（`kit/renderd/LICENSE.mgu-renderd`），`kit/renderd/inputgate` 门控采用 MIT。渲染器作为独立程序运行，因此经 socket 与它通信的应用仍采用 MIT。
 
-另一部分是 Doom：`apps/doom/doom.wasm` 是以 WebAssembly 编译的 [doomgeneric](https://github.com/ozkl/doomgeneric) 引擎（GPL-2.0），所以 Doom 应用整体按 GPL-2.0 分发，见 `apps/doom/LICENSE` 和 `NOTICE`。完整源码及适配修改在 `third_party/doomgeneric`，使用 zig 0.13 和 binaryen 119 执行其 `build.sh` 可逐字节重建 `doom.wasm`。游戏数据 [Freedoom: Phase 1](https://freedoom.github.io) 0.13.0 采用 BSD，声明在 NOTICE 中；数据不放入仓库，由构建脚本下载并核对 SHA-256。Doom 是 id Software 的商标，Freedoom 与本应用均不隶属于 id Software。
+另一部分是 Doom：`apps/dimon_doom/doom.wasm` 是以 WebAssembly 编译的 [doomgeneric](https://github.com/ozkl/doomgeneric) 引擎（GPL-2.0），所以 Doom 应用整体按 GPL-2.0 分发，见 `apps/dimon_doom/LICENSE` 和 `NOTICE`。完整源码及适配修改在 `third_party/doomgeneric`，使用 zig 0.13 和 binaryen 119 执行其 `build.sh` 可逐字节重建 `doom.wasm`。游戏数据 [Freedoom: Phase 1](https://freedoom.github.io) 0.13.0 采用 BSD，声明在 NOTICE 中；数据不放入仓库，由构建脚本下载并核对 SHA-256。Doom 是 id Software 的商标，Freedoom 与本应用均不隶属于 id Software。
 
 ---
 

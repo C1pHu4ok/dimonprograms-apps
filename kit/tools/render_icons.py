@@ -11,7 +11,7 @@ rendered PNGs are committed and a normal build needs none of this.
 
 Needs: Pillow, and Chromium / Chrome (headless). Set CHROME=/path/to/chrome if it isn't found.
     python3 kit/tools/render_icons.py            # every icon
-    python3 kit/tools/render_icons.py doom       # one
+    python3 kit/tools/render_icons.py dimon_doom       # one
     python3 kit/tools/render_icons.py --sheet out.png   # also a preview sheet on black
     python3 kit/tools/render_icons.py --tile --out DIR  # on the glass tile instead
 """

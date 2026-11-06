@@ -59,8 +59,8 @@ Python 3와 Node.js 14 이상이 필요합니다. 기존 프로젝트에 이미 
    생성 파일:
 
    ```text
-   dist/redline@1.12.0-ko.1.mgu
-   dist/service@1.4.21-ko.1.mgu
+   dist/dimon_redline@1.12.0-ko.1.mgu
+   dist/dimon_service@1.4.21-ko.1.mgu
    ```
 
 3. 설치 도구·렌더러까지 들어 있는 Redline + Service 키트는 아래 명령으로 만듭니다.
@@ -106,9 +106,9 @@ Windows에서는 `python3` 대신 `python`을 사용하세요.
 
 ```sh
 python3 kit/tools/build.py --language ko --preview-only redline service car_vitals
-node kit/tools/preview.js dist/redline preview/ko/redline render --set renderer=software
-node kit/tools/preview.js dist/service preview/ko/service render --set renderer=software
-node kit/tools/preview.js dist/car_vitals preview/ko/car_vitals render --set renderer=software
+node kit/tools/preview.js dist/dimon_redline preview/ko/redline render --set renderer=software
+node kit/tools/preview.js dist/dimon_service preview/ko/service render --set renderer=software
+node kit/tools/preview.js dist/dimon_car_vitals preview/ko/car_vitals render --set renderer=software
 ```
 
 위 명령은 SDK 없이 화면만 확인합니다. 설치용 `.mgu`를 만들 때는 소유 차량의 SDK를
@@ -123,8 +123,8 @@ node kit/tools/preview.js dist/car_vitals preview/ko/car_vitals render --set ren
 
 미리보기 시작 시 `[preview] UI language: ko`가 표시되는지 확인하세요. `en`이면
 미리보기 대상 폴더가 영문 빌드입니다. `--language ko` 빌드를 다시 실행하고 같은
-앱 경로로 미리보기를 실행하세요. 예를 들어 Redline을 빌드했다면 `dist/redline`을
-지정해야 합니다. 인수 없이 실행한 `preview.js`의 기본 대상은 `dist/car_vitals`입니다.
+앱 경로로 미리보기를 실행하세요. 예를 들어 Redline을 빌드했다면 `dist/dimon_redline`을
+지정해야 합니다. 인수 없이 실행한 `preview.js`의 기본 대상은 `dist/dimon_car_vitals`입니다.
 기본 빌드(`python kit/tools/build.py` 등)를 나중에 실행하면 같은 `dist` 폴더가
 영문으로 다시 만들어집니다. 로그의 `preview`, `subscribing signals` 같은 개발용
 문구는 번역 대상이 아니며 실제 한글 여부는 생성된 PNG에서 확인하세요.

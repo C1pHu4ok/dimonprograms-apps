@@ -1,7 +1,7 @@
 # Simplified Chinese diagnostic descriptions
 
 The `zh-CN` Fault Scanner build adds an independent lookup catalog for the fault
-texts in the bundled `apps/dtc_scanner/dtc_db.pack`. It does not change that database,
+texts in the bundled `apps/dimon_dtc_scanner/dtc_db.pack`. It does not change that database,
 diagnostic requests, clear behavior, app IDs, app.json files or startup handling.
 The English build keeps its package name and contains no diagnostic translation
 pack or expanded atlas. Other Chinese apps keep the original UI atlas.
@@ -36,10 +36,10 @@ With the SDK extracted from your own unit as described in README.md:
 python kit/tools/build_diagnostic_zh.py --report work/diagnostic-report
 python kit/tools/build.py --language zh-CN dtc_scanner
 node kit/tools/test_diagnostic_zh.js
-node kit/tools/test_zh.js dist/dtc_scanner/source/javascript/kit
+node kit/tools/test_zh.js dist/dimon_dtc_scanner/source/javascript/kit
 python kit/tools/build.py --language en dtc_scanner
 node kit/tools/test_diagnostic_zh.js
-node kit/tools/test_zh.js dist/dtc_scanner/source/javascript/kit
+node kit/tools/test_zh.js dist/dimon_dtc_scanner/source/javascript/kit
 python kit/tools/test_zh.py
 ```
 

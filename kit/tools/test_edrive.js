@@ -12,8 +12,8 @@ const EventEmitter = require('events');
 const Module = require('module');
 
 const ROOT = path.join(__dirname, '..', '..'), KIT = path.join(ROOT, 'kit', 'runtime');
-const MAIN = path.join(ROOT, 'apps', 'edrive', 'main.js'), LIVE = path.join(ROOT, 'apps', 'edrive', 'live.js');
-const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'edrive', 'app.json'), 'utf8'));
+const MAIN = path.join(ROOT, 'apps', 'dimon_edrive', 'main.js'), LIVE = path.join(ROOT, 'apps', 'dimon_edrive', 'live.js');
+const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'dimon_edrive', 'app.json'), 'utf8'));
 const { Recorder: Canvas } = require(path.join(KIT, 'record'));        // what the kit draws into (display.js)
 const themes = require(path.join(KIT, 'themes'));
 
@@ -101,7 +101,7 @@ function context(dir, set) {
  * "Read now" button (the health read too), exit() the process exiting (its exit handlers only: kept off this process's)
  */
 async function boot(dir, vals, set) {
-    [MAIN, LIVE, path.join(ROOT, 'apps', 'edrive', 'range.js')].forEach((f) => { delete require.cache[f]; });
+    [MAIN, LIVE, path.join(ROOT, 'apps', 'dimon_edrive', 'range.js')].forEach((f) => { delete require.cache[f]; });
     require(MAIN);
     values = vals; timers = [];
     const ctx = context(dir, set), before = process.listeners('exit');

@@ -3,7 +3,7 @@
  * hu-stub.js - a stubbed head unit for running a built app (dist/<id>) on the PC: the RHMI ui, the
  * real Settings class, ctx and the kit/mgu module the app requires. No SDK, no SOME/IP.
  *
- *   const hu = headUnit('dist/redline', { dataDir, image: (name, cv) => ..., fresh: true, sets });
+ *   const hu = headUnit('dist/dimon_redline', { dataDir, image: (name, cv) => ..., fresh: true, sets });
  *   hu.start();          // loads the app (its mgu.run(impl) gets hu.ctx)
  *
  * preview.js (default): frames on demand. ctx.loop only records each screen's draw function
@@ -265,7 +265,7 @@ const SCALE = {
     rpm: { factor: 0.25, offset: 0 }, speed: { factor: 0.015625, offset: 0 }, accel: { factor: 0.002, offset: -65 },
     temp: { factor: 1, offset: -48 }, torque: { factor: 0.5, offset: -1023.5 },
 };
-// FrontCCU enum names (a copy: must match PUSH / DEFL in apps/doom/controls.js and TILT in kit/runtime/display.js)
+// FrontCCU enum names (a copy: must match PUSH / DEFL in apps/dimon_doom/controls.js and TILT in kit/runtime/display.js)
 const PUSH = ['KEINE_BETAETIGUNG', 'DREHGEBER_KURZ_GEDRUECKT', 'DREHGEBER_LANG_GEDRUECKT'];
 const DEFL = { 0: 'MITTELSTELLUNG', 1: 'NORD_KURZ_GEDRUECKT', 4: 'OST_KURZ_GEDRUECKT', 7: 'SUED_KURZ_GEDRUECKT', 10: 'WEST_KURZ_GEDRUECKT' };
 

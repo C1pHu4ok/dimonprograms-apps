@@ -10,8 +10,8 @@ const path = require('path');
 const Module = require('module');
 
 const ROOT = path.join(__dirname, '..', '..'), KIT = path.join(ROOT, 'kit', 'runtime');
-const MAIN = path.join(ROOT, 'apps', 'warmup', 'main.js');
-const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'warmup', 'app.json'), 'utf8'));
+const MAIN = path.join(ROOT, 'apps', 'dimon_warmup', 'main.js');
+const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'dimon_warmup', 'app.json'), 'utf8'));
 const { Recorder } = require(path.join(KIT, 'record'));        // what the kit draws into (display.js)
 const themes = require(path.join(KIT, 'themes'));
 

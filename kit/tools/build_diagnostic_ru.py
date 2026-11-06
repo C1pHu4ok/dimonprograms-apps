@@ -62,7 +62,7 @@ def main():
         if hex_values(source) - hex_values(values[source]):
             raise ValueError('Hex ID lost: ' + source)
     stats = {
-        'database_sha256': hashlib.sha256((ROOT/'apps/dtc_scanner/dtc_db.pack').read_bytes()).hexdigest(),
+        'database_sha256': hashlib.sha256((ROOT/'apps/dimon_dtc_scanner/dtc_db.pack').read_bytes()).hexdigest(),
         'database_unique': len(texts),
         'translated': len(texts) - len(untranslated),
         'russian_descriptions': sum(bool(re.search(r'[А-Яа-яЁё]', values[s])) for s in texts if s in values),

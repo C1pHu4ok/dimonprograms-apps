@@ -86,22 +86,22 @@ async function main(){
   const G=require(path.join(kit,'gauges')),theme=require(path.join(kit,'themes')).theme('m_tricolour');
   const demo={text:'DEMO'},sim={text:'SIM',color:'warn'},knob={text:'KNOB',color:'accent'},rollout={text:'ROLLOUT 1 FT',color:'dim'};
   const cases=[
-   ['brake_test','Brake Test',['Brake test','History','Settings'],[demo]],
-   ['car_vitals','M Vitals',['Engine','Thermals','Fuel & ignition','Chassis','Settings'],[demo]],
-   ['draggy','Drag Timer',['Drag timer','Best times','Settings'],[demo,rollout]],
-   ['dtc_scanner','Fault Scanner',['Faults  1/2','Check Control','Control units','Settings'],[demo]],
-   ['dyno','Virtual Dyno',['Virtual dyno','Saved runs','Settings'],[demo]],
+   ['dimon_brake_test','Brake Test',['Brake test','History','Settings'],[demo]],
+   ['dimon_car_vitals','M Vitals',['Engine','Thermals','Fuel & ignition','Chassis','Settings'],[demo]],
+   ['dimon_draggy','Drag Timer',['Drag timer','Best times','Settings'],[demo,rollout]],
+   ['dimon_dtc_scanner','Fault Scanner',['Faults  1/2','Check Control','Control units','Settings'],[demo]],
+   ['dimon_dyno','Virtual Dyno',['Virtual dyno','Saved runs','Settings'],[demo]],
    ['edrive hybrid','eDrive',['Range','Energy','Battery','Charge log','Diagnostic','Settings'],[demo]],
    ['edrive 12 V','eDrive',['12 V battery','Diagnostic','Settings'],[demo]],
-   ['gforce','G-Force',['G-force','Records','Settings'],[demo]],
+   ['dimon_gforce','G-Force',['G-force','Records','Settings'],[demo]],
    ['live_adjustments BM3+xDrive','Engine Config',['Exhaust Flap','Engine Map','Burbles','Active Sound','xDrive','Settings'],[sim]],
    ['live_adjustments MHD','Engine Config',['Exhaust Flap','Engine Map','Max Cooling','Settings'],[sim]],
-   ['live_data','Live Data',['New screen','Trips','Signals 1/2','Engine 1/2','Units','Settings'],[demo,knob]],
+   ['dimon_live_data','Live Data',['New screen','Trips','Signals 1/2','Engine 1/2','Units','Settings'],[demo,knob]],
    ['live_data gauges','Live Data',['Gauges 1/3','Trips','Signals','Engine','Units','Settings'],[demo]],
-   ['redline','Redline',['Tach','Shift log','Settings'],[demo]],
-   ['service','Service',['Service','Diagnostics','Settings'],[demo]],
-   ['warmup','Warm-Up',['Warm-up','Settings'],[demo]],
-   ['zf8hp','Transmission Config',['Live','Clutches','Shifts','Map','Thermal','Details','Reference','Settings'],[{text:'EXPERIMENTAL',color:'warn'},{text:'LIVE · UNVERIFIED',color:'warn'}]],
+   ['dimon_redline','Redline',['Tach','Shift log','Settings'],[demo]],
+   ['dimon_service','Service',['Service','Diagnostics','Settings'],[demo]],
+   ['dimon_warmup','Warm-Up',['Warm-up','Settings'],[demo]],
+   ['dimon_zf8hp','Transmission Config',['Live','Clutches','Shifts','Map','Thermal','Details','Reference','Settings'],[{text:'EXPERIMENTAL',color:'warn'},{text:'LIVE · UNVERIFIED',color:'warn'}]],
   ];
   const checkTabs=(name,title,tabs,badges)=>{
    const header=new Canvas(1920,720);G.header(header,theme,84,0,1256,80,title,tabs,0,badges,true,true);
@@ -111,7 +111,7 @@ async function main(){
   };
   for(const args of cases)checkTabs(...args);
   for(const state of ['DEMO','NO LINK','IDENTIFYING','OTHER EGS','LINK STALE','LIVE','LIVE · UNVERIFIED'])
-   checkTabs('zf8hp '+state,'Transmission Config',cases.find(c=>c[0]==='zf8hp')[2],[{text:'EXPERIMENTAL',color:'warn'},{text:state,color:'warn'}]);
+   checkTabs('zf8hp '+state,'Transmission Config',cases.find(c=>c[0]==='dimon_zf8hp')[2],[{text:'EXPERIMENTAL',color:'warn'},{text:state,color:'warn'}]);
  }
  assert.strictEqual(cv.text('Oil',10,50,32,'#ffffff',opts),r.text('Oil',10,50,32,'#ffffff',opts));
  assert.strictEqual(cv.textWidth('Oil',32,opts),r.textWidth('Oil',32,opts));

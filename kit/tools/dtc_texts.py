@@ -9,14 +9,14 @@ Export: coding tools (e.g. a BimmerCode / E-Sys style backup) write the car's fa
     /// ATM2 [61] - Telematic Communication Box ///
     026104 -> TCB: Internal SWT check failed
 
-This turns such an export into apps/dtc_scanner/dtc_texts.js ("61:026104" -> text), which the
+This turns such an export into apps/dimon_dtc_scanner/dtc_texts.js ("61:026104" -> text), which the
 Fault Scanner shows next to each fault it reads. Fault codes are per control unit, so the key is
 address + code. Only faults in the export get a text: export again after new faults and rebuild.
 
 Database (--db): an oap-dtcscan package (the zip, its .tgz or an unpacked folder) holds the fault
 texts of every control unit type: sgbd_index.json ("<address> <SGBD index>" -> SGBD),
 texts/<SGBD>.json (code -> text), unit_names.json (SGBD -> name) and dtc_texts.json
-("<address>:<code>" -> text). Only those data files are copied, to apps/dtc_scanner/dtc_db/; the
+("<address>:<code>" -> text). Only those data files are copied, to apps/dimon_dtc_scanner/dtc_db/; the
 scanner asks each unit with faults for its SGBD index (UDS 22 F1 50) and looks its texts up there.
 
 Code list (--codes): a CSV of code + description (BMW_Fault_Codes.csv), with no control unit. It
@@ -32,7 +32,7 @@ scanner shows no text for that fault. The texts are BMW's: they stay out of git 
 import json, os, re, shutil, sys, tarfile, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-APP = os.path.join(HERE, '..', '..', 'apps', 'dtc_scanner')
+APP = os.path.join(HERE, '..', '..', 'apps', 'dimon_dtc_scanner')
 
 
 def from_export(src, out):

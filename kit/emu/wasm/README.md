@@ -57,7 +57,7 @@ display-bridge's DBR1 apps are dropped.
 
 ```sh
 python3 kit/tools/build.py redline
-node kit/tools/preview.js dist/redline preview/redline-gpu/png wait=12 render --set coldGuard=false --gpu preview/redline-gpu/stream.bin
+node kit/tools/preview.js dist/dimon_redline preview/redline-gpu/png wait=12 render --set coldGuard=false --gpu preview/redline-gpu/stream.bin
 docker run --rm -v $PWD/kit/renderd/build:/b -v $PWD/preview/redline-gpu:/o mgu-renderd-build \
     /lib64/ld-linux-x86-64.so.2 /b/mgu-renderd --replay /o/stream.bin --out /o/frame.pam --raw /o/frames.rgba
 python3 -m http.server 8765

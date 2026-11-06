@@ -141,7 +141,7 @@ for (const language of ['en', 'zh-CN']) {
     assert.strictEqual(parse('09.2027', now).text, 'September 2027');
 }
 '''
-subprocess.run(['node', '-e', service_date_test, str(root / 'apps/service/main.js'),
+subprocess.run(['node', '-e', service_date_test, str(root / 'apps/dimon_service/main.js'),
                 str(root / 'kit/runtime/locales/ru.json')], check=True)
 extra = root / 'kit/runtime/locales/xx-test.json'
 assert not extra.exists()

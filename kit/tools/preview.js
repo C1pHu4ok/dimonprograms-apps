@@ -3,7 +3,7 @@
  * preview.js - run a built app on the PC with a stubbed head unit and save
  * what it draws as PNGs (no VM needed for visual work).
  *
- *   node kit/tools/preview.js dist/car_vitals [outDir] [clicks...] [--set key=value ...] [--gpu FILE]
+ *   node kit/tools/preview.js dist/dimon_car_vitals [outDir] [clicks...] [--set key=value ...] [--gpu FILE]
  *
  * clicks = component names to "press" between frames, e.g. BTN_PAGE BTN_PAGE;
  * also wait=<seconds>, render (draw a frame now) and frames=<n> (n frames at 60 a second, in
@@ -18,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const { headUnit } = require('./hu-stub');
 
-const stage = path.resolve(process.argv[2] || 'dist/car_vitals');
+const stage = path.resolve(process.argv[2] || 'dist/dimon_car_vitals');
 const localePath = path.join(stage, 'source', 'javascript', 'kit', 'locale.json');
 const previewLanguage = JSON.parse(fs.readFileSync(localePath, 'utf8')).language || 'en';
 console.log('[preview] UI language: ' + previewLanguage + ' | stage: ' + stage);

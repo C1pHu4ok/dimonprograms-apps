@@ -5,8 +5,8 @@
 //   node kit/tools/test_live_adjustments.js
 
 const assert = require('assert');
-const { TuneControl } = require('../../apps/live_adjustments/tune');
-const { XDriveControl } = require('../../apps/live_adjustments/xdrive');
+const { TuneControl } = require('../../apps/dimon_live_adjustments/tune');
+const { XDriveControl } = require('../../apps/dimon_live_adjustments/xdrive');
 
 function dme(kind) {
     const calls = [];

@@ -19,7 +19,7 @@ LOCALIZATION = ROOT / 'kit/localization'
 
 
 def database_strings():
-    data = (ROOT/'apps/dtc_scanner/dtc_db.pack').read_bytes()
+    data = (ROOT/'apps/dimon_dtc_scanner/dtc_db.pack').read_bytes()
     if data[:8] != b'MGUPACK1':
         raise ValueError('Not an MGUPACK1 database')
     length = struct.unpack('<I', data[8:12])[0]
@@ -87,7 +87,7 @@ def main():
             if token not in values[source]:
                 raise ValueError('Hex ID lost: ' + source)
     stats = {
-        'database_sha256': hashlib.sha256((ROOT/'apps/dtc_scanner/dtc_db.pack').read_bytes()).hexdigest(),
+        'database_sha256': hashlib.sha256((ROOT/'apps/dimon_dtc_scanner/dtc_db.pack').read_bytes()).hexdigest(),
         'database_unique': len(texts),
         'chinese_descriptions': sum(bool(re.search(r'[\u4e00-\u9fff]', values[s])) for s in texts),
         'identifier_only': len(identifiers),

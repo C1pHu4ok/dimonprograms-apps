@@ -34,7 +34,7 @@ Module._load = function (req, parent, isMain) {
     if (req.startsWith('./kit/')) return load.call(this, path.join(kit, req.slice(6)), parent, isMain);
     return load.call(this, req, parent, isMain);
 };
-require(path.join(ROOT, 'apps/gforce/main'));
+require(path.join(ROOT, 'apps/dimon_gforce/main'));
 const { Recorder } = require(path.join(kit, 'record'));
 const themes = require(path.join(kit, 'themes'));
 const vals = { scale: 1.5, trail: 4, flipLat: false, speedUnit: 'kmh', theme: 'm_tricolour', gRate: 10, demo: 'off' };
