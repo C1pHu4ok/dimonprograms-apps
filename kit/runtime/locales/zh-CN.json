@@ -431,7 +431,7 @@
   "Totals": "总计",
   "Where the power goes now": "当前功率分配",
   "Raw values as the car sends them - for checking the scalings (config.scaling in app.json).": "车辆原始数值，用于核对 app.json 中的 config.scaling 换算配置。",
-  "A value n/a or wrong? Adjust config.battery in apps/edrive/app.json and rebuild.": "数值不可用或不正确时，调整 app.json 中的 config.battery 后重新构建。",
+  "A value n/a or wrong? Adjust config.battery in apps/dimon_edrive/app.json and rebuild.": "数值不可用或不正确时，调整 app.json 中的 config.battery 后重新构建。",
   "No hybrid system": "无混合动力系统",
   "Hybrid car? Settings > Hybrid system > Yes": "混动车请在“设置 > 混合动力系统”中选择“是”",
   "No high-voltage battery answered, so": "高压电池无响应，因此",

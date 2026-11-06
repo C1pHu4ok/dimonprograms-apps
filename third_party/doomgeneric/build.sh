@@ -1,5 +1,5 @@
 #!/bin/bash
-# build.sh - doomgeneric -> apps/doom/doom.wasm (the iDrive Doom app's game engine)
+# build.sh - doomgeneric -> apps/dimon_doom/doom.wasm (the iDrive Doom app's game engine)
 #
 # Needs: zig (C compiler for wasm32-wasi, e.g. `pip install ziglang==0.13.0`) and binaryen's wasm-opt
 # (e.g. `npm install binaryen@119`). Override with ZIG="zig" / WASM_OPT=/path/to/wasm-opt.
@@ -9,7 +9,7 @@ set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 ZIG=${ZIG:-"python3 -m ziglang"}
 WASM_OPT=${WASM_OPT:-wasm-opt}
-OUT=${OUT:-$HERE/../../apps/doom/doom.wasm}
+OUT=${OUT:-$HERE/../../apps/dimon_doom/doom.wasm}
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 cd "$HERE/doomgeneric"
 SRCS=$(sed -n 's/^SRC_DOOM = //p' Makefile | tr ' ' '\n' | grep -v doomgeneric_xlib | sed 's/\.o$/.c/')

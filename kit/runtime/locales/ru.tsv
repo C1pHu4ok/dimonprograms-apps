@@ -433,7 +433,7 @@ Charges	Зарядки
 Totals	Итого
 Where the power goes now	Текущее распределение мощности
 Raw values as the car sends them - for checking the scalings (config.scaling in app.json).	Исходные значения автомобиля — для проверки коэффициентов config.scaling в app.json.
-A value n/a or wrong? Adjust config.battery in apps/edrive/app.json and rebuild.	Значение недоступно или неверно? Измените config.battery в apps/edrive/app.json и пересоберите.
+A value n/a or wrong? Adjust config.battery in apps/dimon_edrive/app.json and rebuild.	Значение недоступно или неверно? Измените config.battery в apps/dimon_edrive/app.json и пересоберите.
 No hybrid system	Нет гибридной системы
 Hybrid car? Settings > Hybrid system > Yes	Гибрид? Настройки > Гибридная система > Да
 No high-voltage battery answered, so	Высоковольтная батарея не ответила, поэтому

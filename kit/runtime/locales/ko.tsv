@@ -435,7 +435,7 @@ Charges	충전 기록
 Totals	합계
 Where the power goes now	현재 전력 사용처
 Raw values as the car sends them - for checking the scalings (config.scaling in app.json).	차량이 전송한 원시값 - app.json의 config.scaling 확인용
-A value n/a or wrong? Adjust config.battery in apps/edrive/app.json and rebuild.	값이 없거나 잘못되면 apps/edrive/app.json의 config.battery를 조정 후 다시 빌드하세요.
+A value n/a or wrong? Adjust config.battery in apps/dimon_edrive/app.json and rebuild.	값이 없거나 잘못되면 apps/dimon_edrive/app.json의 config.battery를 조정 후 다시 빌드하세요.
 No hybrid system	하이브리드 시스템 없음
 Hybrid car? Settings > Hybrid system > Yes	하이브리드 차량: 설정 > 하이브리드 시스템 > 예
 No high-voltage battery answered, so	고전압 배터리 응답이 없어

@@ -1,10 +1,10 @@
 # doomgeneric for the iDrive Doom app
 
-The game engine of `apps/doom`: [doomgeneric](https://github.com/ozkl/doomgeneric) (GPL-2.0, see
+The game engine of `apps/dimon_doom`: [doomgeneric](https://github.com/ozkl/doomgeneric) (GPL-2.0, see
 `LICENSE`), upstream commit `e257a09`, with these changes (all in `mgu.patch`):
 
 - `doomgeneric/doomgeneric_mgu.c` (new): the platform layer. Doom runs as WebAssembly inside the
-  app's Node.js process; JavaScript (`apps/doom/doom-core.js`) gives the time and the keys and takes
+  app's Node.js process; JavaScript (`apps/dimon_doom/doom-core.js`) gives the time and the keys and takes
   each 320 x 200 frame. Extra exports for the app: controller turning (`mgu_turn`, one mouse move
   per tic), game state, save / load, new game, next / previous weapon keys, the full-resolution
   3D view (`mgu_view_*`, `mgu_set_res`) and the status bar's border texture (`mgu_flat`).
@@ -20,5 +20,5 @@ The game engine of `apps/doom`: [doomgeneric](https://github.com/ozkl/doomgeneri
   renderer takes them; the see-through marking over the 3D view becomes transparent (all zero).
   The palette (`colors`) is shared with the view conversion.
 
-`build.sh` builds `apps/doom/doom.wasm` from this folder (the committed `doom.wasm` is built from
+`build.sh` builds `apps/dimon_doom/doom.wasm` from this folder (the committed `doom.wasm` is built from
 exactly this source).
