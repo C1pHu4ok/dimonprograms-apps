@@ -25,6 +25,7 @@
 | `dimon_dyno` | Virtual Dyno | Виртуальный диностенд |
 | `dimon_gforce` | G-Force | Измеритель перегрузок |
 | `dimon_warmup` | Warm-Up | Прогрев масла и антифриза |
+| `dimon_battery` | Battery & Electrical | 12 В: напряжение, ток, заряд, здоровье АКБ и вердикт (только чтение) |
 | `dimon_zf8hp` | Transmission Config | ZF 8HP, только чтение (экспериментально) |
 | `dimon_doom` | Doom | Freedoom для стоянки |
 
