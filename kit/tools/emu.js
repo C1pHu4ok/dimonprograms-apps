@@ -68,8 +68,12 @@ const listApps = () => fs.readdirSync(path.join(ROOT, 'apps')).filter((d) => fs.
 const appTitles = () => listApps().reduce((o, id) => { try { o[id] = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', id, 'app.json'), 'utf8')).title || id; } catch (e) { o[id] = id; } return o; }, {});
 let appId = args[0];
 if (!appId || listApps().indexOf(appId) < 0) { console.error('usage: node kit/tools/emu.js <app> [--port 8077] [--bg file.png] [--no-touch]\napps: ' + listApps().join(' ')); process.exit(2); }
-// (a short path: Unix socket paths are limited to ~104 bytes)
-const SOCK = path.join(os.tmpdir(), 'mgu-emu-' + process.pid + '.sock');
+// (a short path: Unix socket paths are limited to ~104 bytes). On Windows AF_UNIX
+// .sock files are refused here (EACCES), so use a named pipe, which net listens on and
+// connects to the same way; the same path is handed to the app in MGU_RENDERD_SOCKET.
+const SOCK = process.platform === 'win32'
+    ? '\\\\.\\pipe\\mgu-emu-' + process.pid
+    : path.join(os.tmpdir(), 'mgu-emu-' + process.pid + '.sock');
 const MAX_MSG = 24 << 20;                       // a bigger message ends the connection (PROTOCOL.md "Framing")
 const PAGE_BEHIND = 8 << 20, PAGE_GONE = 64 << 20;   // bytes queued to a page: frames wait for it / it is closed
 
