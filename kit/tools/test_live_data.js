@@ -418,7 +418,8 @@ async function main() {
     /* ---------- the value picker (picker.js) ---------- */
     // (it uses the kit as the built app has it: ./kit = kit/runtime)
     const stage = fs.mkdtempSync(path.join(os.tmpdir(), 'live-data-app-'));
-    fs.symlinkSync(kit, path.join(stage, 'kit'), 'dir');
+    // a junction on Windows: directory symlinks there need admin rights or developer mode
+    fs.symlinkSync(kit, path.join(stage, 'kit'), process.platform === 'win32' ? 'junction' : 'dir');
     fs.copyFileSync(path.join(ROOT, 'apps', 'dimon_live_data', 'picker.js'), path.join(stage, 'picker.js'));
     process.on('exit', () => fs.rmSync(stage, { recursive: true, force: true }));
     const PICK = require(path.join(stage, 'picker'));
